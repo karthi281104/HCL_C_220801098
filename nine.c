@@ -1,39 +1,41 @@
-#include<stdio.h>
+#include <stdio.h>
 
-long long fib(int n)
+int n;
+
+void iter(int n)
 {
-    if(n<=1)
+    int k = 0, l = 1, m = 0;
+    for (int i = 0; i < n; i++)
+    {
+        printf(" %d ", m);
+        m = k + l;
+        k = l;
+        l = m;
+    }
+}
+
+int recc(int n)
+{
+    if (n <= 1)
         return n;
-    return fib(n-1)+fib(n-2);
+    return recc(n - 1) + recc(n - 2);
+}
+
+void febi(int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        printf(" %d ", recc(i));
+    }
 }
 
 int main()
 {
-    int n;
-    printf("enter N=");
-    scanf("%d",&n);
-
-    if(n<=0)
-    {
-        printf("enter a positive number");
-        return 0;
-    }
-
-    long long a=0,b=1;
+    printf("enter the n=");
+    scanf("%d", &n);
     printf("Iterative: ");
-    for(int i=0;i<n;i++)
-    {
-        printf("%lld ",a);
-        long long next=a+b;
-        a=b;
-        b=next;
-    }
-
+    iter(n);
     printf("\nRecursive: ");
-    for(int i=0;i<n;i++)
-    {
-        printf("%lld ",fib(i));
-    }
-
+    febi(n);
     return 0;
 }

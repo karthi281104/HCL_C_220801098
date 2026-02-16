@@ -1,30 +1,21 @@
 #include<stdio.h>
+#include<math.h>
 #include<limits.h>
 
 int main()
 {
-    int n;
-    printf("enter the integer=");
+    int n,rem,result=0;
+    printf("enter the n value=");
     scanf("%d",&n);
 
-    long long temp=n;
-    int sign=1;
-    if(temp<0)
+    while(n!=0)
     {
-        sign=-1;
-        temp=-temp;
+        rem=n%10;
+        result=result*10+rem;
+        n=n/10;
+        
     }
-
-    long long rev=0;
-    while(temp>0)
-    {
-        int digit=(int)(temp%10);
-        rev=rev*10 + digit;
-        temp=temp/10;
-    }
-
-    long long result=rev*sign;
-    printf("reversed= %lld",result);
+    printf("%d",result);
 
     if(result>INT_MAX || result<INT_MIN)
     {

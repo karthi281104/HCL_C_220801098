@@ -5,9 +5,7 @@ int main()
     char s[200];
     printf("enter the string=");
 
-    if(fgets(s,sizeof(s),stdin)==NULL)
-        return 0;
-
+    fgets(s,sizeof(s),stdin);
     int len=0;
     while(s[len]!='\0' && s[len]!='\n')
         len++;
