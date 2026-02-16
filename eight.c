@@ -8,6 +8,8 @@ int main()
 
     int leap = (year%400==0) ? 1 : (year%100==0) ? 0 : (year%4==0) ? 1 : 0;
 
+    printf("%d",leap);
+
     if(leap)
         printf("Leap year");
     else
