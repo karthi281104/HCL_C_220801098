@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<string.h>
 #include<ctype.h>
 
 int main()
@@ -8,10 +9,7 @@ int main()
     if(fgets(s,sizeof(s),stdin)==NULL)
         return 0;
 
-    int len=0;
-    while(s[len]!='\0' && s[len]!='\n')
-        len++;
-    s[len]='\0';
+    int len=strlen(s);
 
     int l=0;
     int r=len-1;
