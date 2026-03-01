@@ -18,56 +18,34 @@ int parse_int(char*);
 
 
 /*
- * Complete the 'findSmallestMissingPositive' function below.
+ * Complete the 'getAutoSaveInterval' function below.
  *
- * The function is expected to return an INTEGER.
- * The function accepts INTEGER_ARRAY orderNumbers as parameter.
+ * The function is expected to return a LONG_INTEGER.
+ * The function accepts INTEGER n as parameter.
  */
 
-int findSmallestMissingPositive(int n, int* arr)
-{
-    if (n == 0)
+long getAutoSaveInterval(int n) {
+    if(n==0)
+    {
         return 1;
-
-    for (int i = 0; i < n - 1; i++)
-    {
-        for (int j = 0; j < n - i - 1; j++)
-        {
-            if (arr[j] > arr[j + 1])
-            {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
-        }
     }
-
-    int smallest = 1;
-
-    for (int i = 0; i < n; i++)
+    long s=1,l=2;
+    for(int i=1;i<n;i++)
     {
-        if (arr[i] == smallest)
-            smallest++;
+        long temp=s+l;
+        s=l;
+        l=temp;
     }
-
-    return smallest;
+    return l;
 }
 
 int main()
 {
-    int orderNumbers_count = parse_int(ltrim(rtrim(readline())));
+    int n = parse_int(ltrim(rtrim(readline())));
 
-    int* orderNumbers = malloc(orderNumbers_count * sizeof(int));
+    long result = getAutoSaveInterval(n);
 
-    for (int i = 0; i < orderNumbers_count; i++) {
-        int orderNumbers_item = parse_int(ltrim(rtrim(readline())));
-
-        *(orderNumbers + i) = orderNumbers_item;
-    }
-
-    int result = findSmallestMissingPositive(orderNumbers_count, orderNumbers);
-
-    printf("%d\n", result);
+    printf("%ld\n", result);
 
     return 0;
 }

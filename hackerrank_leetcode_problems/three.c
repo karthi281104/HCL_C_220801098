@@ -18,54 +18,49 @@ int parse_int(char*);
 
 
 /*
- * Complete the 'findSmallestMissingPositive' function below.
+ * Complete the 'debounceTimestamps' function below.
  *
  * The function is expected to return an INTEGER.
- * The function accepts INTEGER_ARRAY orderNumbers as parameter.
+ * The function accepts following parameters:
+ *  1. INTEGER_ARRAY timestamps
+ *  2. INTEGER K
  */
 
-int findSmallestMissingPositive(int n, int* arr)
-{
-    if (n == 0)
-        return 1;
-
-    for (int i = 0; i < n - 1; i++)
+int debounceTimestamps(int timestamps_count, int* timestamps, int K) {
+    if(timestamps_count==0)
     {
-        for (int j = 0; j < n - i - 1; j++)
+        return 0;
+    }
+    int count=1;
+    int last=timestamps[0];
+    for(int i=1;i<timestamps_count;i++)
+    {
+        int sub=timestamps[i]-last;
+        if(sub>=K)
         {
-            if (arr[j] > arr[j + 1])
-            {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
+            count++;
+            last=timestamps[i];
+            
         }
     }
-
-    int smallest = 1;
-
-    for (int i = 0; i < n; i++)
-    {
-        if (arr[i] == smallest)
-            smallest++;
-    }
-
-    return smallest;
+    return count;
 }
 
 int main()
 {
-    int orderNumbers_count = parse_int(ltrim(rtrim(readline())));
+    int timestamps_count = parse_int(ltrim(rtrim(readline())));
 
-    int* orderNumbers = malloc(orderNumbers_count * sizeof(int));
+    int* timestamps = malloc(timestamps_count * sizeof(int));
 
-    for (int i = 0; i < orderNumbers_count; i++) {
-        int orderNumbers_item = parse_int(ltrim(rtrim(readline())));
+    for (int i = 0; i < timestamps_count; i++) {
+        int timestamps_item = parse_int(ltrim(rtrim(readline())));
 
-        *(orderNumbers + i) = orderNumbers_item;
+        *(timestamps + i) = timestamps_item;
     }
 
-    int result = findSmallestMissingPositive(orderNumbers_count, orderNumbers);
+    int K = parse_int(ltrim(rtrim(readline())));
+
+    int result = debounceTimestamps(timestamps_count, timestamps, K);
 
     printf("%d\n", result);
 

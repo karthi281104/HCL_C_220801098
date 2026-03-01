@@ -18,56 +18,68 @@ int parse_int(char*);
 
 
 /*
- * Complete the 'findSmallestMissingPositive' function below.
+ * Complete the 'countInstallationSequences' function below.
  *
- * The function is expected to return an INTEGER.
- * The function accepts INTEGER_ARRAY orderNumbers as parameter.
+ * The function is expected to return a STRING.
+ * The function accepts INTEGER n as parameter.
  */
 
-int findSmallestMissingPositive(int n, int* arr)
+/*
+ * To return the string from the function, you should either do static allocation or dynamic allocation
+ *
+ * For example,
+ * char* return_string_using_static_allocation() {
+ *     static char s[] = "static allocation of string";
+ *
+ *     return s;
+ * }
+ *
+ * char* return_string_using_dynamic_allocation() {
+ *     char* s = malloc(100 * sizeof(char));
+ *
+ *     s = "dynamic allocation of string";
+ *
+ *     return s;
+ * }
+ *
+ */
+char* countInstallationSequences(int n) 
 {
-    if (n == 0)
-        return 1;
+    long long result;
 
-    for (int i = 0; i < n - 1; i++)
+    if (n == 0 || n == 1)
     {
-        for (int j = 0; j < n - i - 1; j++)
+        result = 1;
+    }
+    else
+    {
+        long long a = 1;
+        long long b = 1;
+        long long temp;
+
+        for (int i = 2; i <= n; i++)
         {
-            if (arr[j] > arr[j + 1])
-            {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
+            temp = a + b;
+            a = b;
+            b = temp;
         }
+
+        result = b;
     }
 
-    int smallest = 1;
+    char* output = malloc(30 * sizeof(char));
+    sprintf(output, "%lld", result);
 
-    for (int i = 0; i < n; i++)
-    {
-        if (arr[i] == smallest)
-            smallest++;
-    }
-
-    return smallest;
+    return output;
 }
 
 int main()
 {
-    int orderNumbers_count = parse_int(ltrim(rtrim(readline())));
+    int n = parse_int(ltrim(rtrim(readline())));
 
-    int* orderNumbers = malloc(orderNumbers_count * sizeof(int));
+    char* result = countInstallationSequences(n);
 
-    for (int i = 0; i < orderNumbers_count; i++) {
-        int orderNumbers_item = parse_int(ltrim(rtrim(readline())));
-
-        *(orderNumbers + i) = orderNumbers_item;
-    }
-
-    int result = findSmallestMissingPositive(orderNumbers_count, orderNumbers);
-
-    printf("%d\n", result);
+    printf("%s\n", result);
 
     return 0;
 }
